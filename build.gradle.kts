@@ -71,11 +71,11 @@ centralPortal {
 	password = System.getenv("SONATYPE_PASSWORD")
 
 	pom {
-		name = "Java Ftp"
-		description = "This library contains embedded ftp server and ftp factory which supports ftp, ftps, sftp."
-		url = "https://valensas.com/"
+		name = "SoapBinTcp"
+		description = "This is a helper library for using soap bin tcp protocol on Springboot "
+		url = ""
 		scm {
-			url = "https://github.com/Valensas/java-ftp"
+			url = "https://github.com/KaanSimsek/soapbintcp/tree/main"
 		}
 
 		licenses {
@@ -88,8 +88,8 @@ centralPortal {
 		developers {
 			developer {
 				id.set("0")
-				name.set("Valensas")
-				email.set("info@valensas.com")
+				name.set("KaanSimsek")
+				email.set("kaan.simsek01@gmail.com")
 			}
 		}
 	}
