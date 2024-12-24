@@ -6,7 +6,7 @@ plugins {
 	id("org.jmailen.kotlinter") version "4.4.1"
 	id("org.springframework.boot") version "3.4.0"
 	id("io.spring.dependency-management") version "1.1.6"
-	id("net.thebugmc.gradle.sonatype-central-portal-publisher") version "1.2.3"
+	//id("net.thebugmc.gradle.sonatype-central-portal-publisher") version "1.2.3"
 	id("maven-publish")
 }
 
@@ -21,22 +21,16 @@ repositories {
 	mavenLocal()
 }
 
+tasks.getByName<Jar>("jar") {
+	archiveClassifier.set("")
+}
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("javax.xml.bind:jaxb-api:2.3.1")
 	implementation("org.glassfish.jaxb:jaxb-runtime:2.3.3")
-
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-kotlin {
-	compilerOptions {
-		freeCompilerArgs.addAll("-Xjsr305=strict")
-	}
 }
 
 tasks.withType<Test> {
@@ -53,11 +47,15 @@ tasks.withType<KotlinCompile> {
 publishing {
 	publications {
 		create<MavenPublication>("mavenJava") {
+			groupId = "io.soapbintcp"
+			artifactId = "event-based-soap-bin-tcp"
+			version = "0.0.1"
 			from(components["java"])
 		}
 	}
 }
 
+/*
 signing {
 	val keyId = System.getenv("SIGNING_KEYID")
 	val secretKey = System.getenv("SIGNING_SECRETKEY")
@@ -94,3 +92,5 @@ centralPortal {
 		}
 	}
 }
+
+ */

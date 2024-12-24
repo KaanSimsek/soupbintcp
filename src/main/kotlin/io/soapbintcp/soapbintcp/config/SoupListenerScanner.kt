@@ -23,8 +23,7 @@ class SoupListenerScanner(
             bean.javaClass.declaredMethods.forEach { method ->
                 if (method.isAnnotationPresent(SoupListener::class.java)) {
                     val annotation = method.getAnnotation(SoupListener::class.java)
-                    val messageClass = method.parameters[0].type
-                    createAndStartClient(method, bean, messageClass, annotation.topic)
+                    createAndStartClient(method, bean, annotation.topic)
                 }
             }
         }
@@ -33,7 +32,6 @@ class SoupListenerScanner(
     private fun createAndStartClient(
         method: Method,
         bean: Any,
-        messageClass: Class<*>,
         topic: String
     ) {
         val soupBinTcpProperties = multipleSocketConnectionProperties.connections[topic] ?:
@@ -47,7 +45,6 @@ class SoupListenerScanner(
         )
 
         val eventListener = GenericEventListener(
-            messageClass = messageClass,
             targetMethod = method,
             targetBean = bean
         )

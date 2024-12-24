@@ -6,18 +6,13 @@ import jakarta.xml.bind.JAXBContext
 import java.io.StringReader
 import java.lang.reflect.Method
 
-class GenericEventListener<T>(
-    private val messageClass: Class<T>,
+class GenericEventListener(
     private val targetBean: Any,
     private val targetMethod: Method
 ): SoupBinTcpEventListener {
     override fun onSequenceData(message: ByteArray) {
         val messageStr = String(message, Charsets.UTF_8)
-        val jaxbContext = JAXBContext.newInstance(messageClass)
-        val unmarshaller = jaxbContext.createUnmarshaller()
-        val stringReader = StringReader(messageStr)
-        val mappedMessage = unmarshaller.unmarshal(stringReader)
-        targetMethod.invoke(targetBean, mappedMessage)
+        targetMethod.invoke(targetBean, messageStr)
     }
 
     override fun onLoginAccepted(loginAccepted: LoginAccepted) {
